@@ -7,18 +7,19 @@ import org.example.basics.Dragon;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class FilterByWingspanCommand implements ExecutableCommand, Serializable {
     private String[] cmd;
 
     /**
      * This method contains logic for "filter_by_wingspan" command. Here the program filtering elements from PriorityQueue and print them.
-     * @param command command with arguments from the console
      */
     @Override
-    public void execute() {
+    public String execute() {
             float goal = Float.parseFloat(cmd[1]);
             Optional<Dragon> dragon = Optional.empty();
+            final String[] answer = {""};
 
             try {
                 dragon = MainCollection.getQueue().stream()
@@ -30,15 +31,14 @@ public class FilterByWingspanCommand implements ExecutableCommand, Serializable 
             Optional<Dragon> finalDragon = dragon;
             dragon.ifPresentOrElse(
                     v -> {HistoryCommand.UpdateHistory("filter_starts_with_name");
-                        System.out.println(finalDragon);},
-                    () -> System.out.println("\u001B[31m" + "В коллекции нет драконов, с указанным размахом крыльев!" + "\u001B[0m")
+                        answer[0] += finalDragon.toString();},
+                    () -> answer[0] += "\u001B[31m В коллекции нет драконов, с указанным размахом крыльев! \u001B[0m");
 
-            );
+            return answer[0];
     }
 
     /**
      * This method validates an arguments for "filter_by_wingspan" command
-     * @param command command with arguments from the console
      * @return returns true if arguments was entered correctly and false if it was entered incorrectly
      */
     @Override

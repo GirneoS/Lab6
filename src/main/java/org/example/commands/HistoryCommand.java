@@ -35,12 +35,12 @@ public class HistoryCommand implements ExecutableCommand, Serializable {
     /**
      * Method that prints all the list of last 13 used commands
      */
-    public static void PrintHistory(){
-        String string = "";
+    public static String PrintHistory(){
+        String str_history = "";
         for (String s : history) {
-            string += s+"\n";
+            str_history += s+"\n";
         }
-        System.out.print(string);
+        return str_history;
     }
 
     /**
@@ -48,9 +48,9 @@ public class HistoryCommand implements ExecutableCommand, Serializable {
      * @param command command with arguments from the console.
      */
     @Override
-    public void execute() {
+    public String execute() {
             AddHistoryInHistory();
-            PrintHistory();
+            return PrintHistory();
     }
 
     /**

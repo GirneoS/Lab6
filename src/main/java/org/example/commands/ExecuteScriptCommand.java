@@ -1,12 +1,14 @@
 package org.example.commands;
 
 import org.example.ExecutableCommand;
-import org.example.Execution;
+import org.example.server.ServerCommandController;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ExecuteScriptCommand implements ExecutableCommand, Serializable {
+    ArrayList<String> fileNames = new ArrayList<>();
     private String[] cmd;
 
     /**
@@ -14,18 +16,25 @@ public class ExecuteScriptCommand implements ExecutableCommand, Serializable {
      * @param command command with arguments from the console
      */
     @Override
-    public void execute() {
-
-            try(BufferedReader reader = new BufferedReader(new FileReader(cmd[1]))){
-                var line = reader.readLine();
-                while(line!=null){
-                    Execution.executeCommand(line.split(" "));
-                    line = reader.readLine();
+    public String execute() {
+        ArrayList<String> executedCommandResult = new ArrayList<>();
+        try(BufferedReader reader = new BufferedReader(new FileReader(cmd[1]))){
+            var line = reader.readLine();
+            while(line!=null){
+                if(line.split(" ")[0].equals("execute_script")){
+                    if(fileNames.contains(line.split(" ")[1])){
+                        return "\u001B[31m" + "В файле не может быть команды \"execute_script\", которая вызывает изначальный файл, т. к. это приведет к рекурсии!" + "\u001B[0m";
+                    }
+                    fileNames.add(line.split(" ")[1]);
                 }
-            } catch(IOException e){
-                e.printStackTrace();
+                ServerCommandController.parseCommand(line.split(" "));
+                line = reader.readLine();
             }
-            HistoryCommand.UpdateHistory("execute_script");
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        HistoryCommand.UpdateHistory("execute_script");
+        return null;
     }
 
     /**

@@ -17,7 +17,7 @@ public class RemoveByIdCommand implements ExecutableCommand, Serializable {
      * @param command command with arguments from the console.
      */
     @Override
-    public void execute() {
+    public String execute() {
 
             int ID = Integer.parseInt(cmd[1]);
             Dragon dragon = MainCollection.getQueue().stream()
@@ -25,10 +25,11 @@ public class RemoveByIdCommand implements ExecutableCommand, Serializable {
                     .findFirst().orElse(null);
 
             if(dragon == null){
-                System.out.println("\u001B[31m" + "Дракона с таким id не существует в коллекции!" + "\u001B[0m");
+                return "\u001B[31m" + "Дракона с таким id не существует в коллекции!" + "\u001B[0m";
             }else{
                 MainCollection.getQueue().remove(dragon);
                 HistoryCommand.UpdateHistory("remove_by_id");
+                return "Вы удалили дракона с id = " + dragon.getId();
             }
     }
 

@@ -1,6 +1,7 @@
-package org.example;
+package org.example.client;
 
-import org.example.client.MessageServer;
+import org.example.ExecutableCommand;
+import org.example.Serialization;
 import org.example.commands.*;
 
 import java.io.*;
@@ -9,7 +10,7 @@ import java.util.HashMap;
 /**
  * This is class for taking the order from console.
  */
-public class Execution {
+public class ClientCommandController {
     /**
      * This map stores a list of command classes and string association for each.
      */
@@ -27,7 +28,6 @@ public class Execution {
         commands.put("filter_starts_with_name", new FilterStartsWithNameCommand());
         commands.put("filter_by_wingspan", new FilterByWingspanCommand());
         commands.put("remove_by_id", new RemoveByIdCommand());
-        commands.put("save", new SaveCommand());
         commands.put("clear", new ClearCommand());
         commands.put("print_descending", new PrintDescendingCommand());
         commands.put("history", new HistoryCommand());
@@ -38,15 +38,17 @@ public class Execution {
      * This method takes a command with arguments from the console and sends it to the right command class.
      * @param command the entered by user command with arguments.
      */
-    public static void executeCommand(String[] command) throws IOException {
+    public static void parseCommand(String[] command) throws IOException {
 
         if(commands.containsKey(command[0])){
             ExecutableCommand executableCommand = commands.get(command[0]);
             executableCommand.setCmd(command);
 
             if(executableCommand.validate()) {
-                MessageServer.SendMessage(executableCommand);
-                MessageServer.ReceiveMessage();
+                byte[] serializedCommand = Serialization.SerializeObject(executableCommand);
+                ClientNet.SendRequest(serializedCommand);
+
+                ClientNet.GetResponse();
             }
         }else{
             System.out.println("\u001B[31m" + "Команда "+command[0]+" не найдена!" + "\u001B[0m");

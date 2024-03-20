@@ -15,9 +15,9 @@ public class InfoCommand implements ExecutableCommand, Serializable {
      * @param command command with arguments from the console
      */
     @Override
-    public void execute() {
-            System.out.println("Тип: PriorityQueue\nДата инициализации: " + MainCollection.getInitDate() + "\nКоличество элементов: " + MainCollection.getQueue().size());
+    public String execute() {
             HistoryCommand.UpdateHistory("info");
+            return "Тип: PriorityQueue\nДата инициализации: " + MainCollection.getInitDate() + "\nКоличество элементов: " + MainCollection.getQueue().size();
     }
 
     /**

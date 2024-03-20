@@ -5,7 +5,10 @@ import org.example.MainCollection;
 import org.example.basics.Dragon;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class PrintDescendingCommand implements ExecutableCommand, Serializable {
@@ -16,14 +19,15 @@ public class PrintDescendingCommand implements ExecutableCommand, Serializable {
      * @param command command with arguments from the console.
      */
     @Override
-    public void execute() {
-            String reverseOrder = "";
+    public String execute() {
 
-            for (Dragon d : MainCollection.getQueue()) {
-                reverseOrder = d +"\n"+ reverseOrder;
-            }
-            System.out.print(reverseOrder);
-            HistoryCommand.UpdateHistory("print_descending");
+        List<String> reverseDragons = MainCollection.getQueue().stream()
+                    .map(Dragon::toString)
+                    .toList();
+
+        System.out.println(reverseDragons);
+        HistoryCommand.UpdateHistory("print_descending");
+        return String.join("\n", reverseDragons);
     }
 
     /**

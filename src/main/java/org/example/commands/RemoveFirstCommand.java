@@ -15,12 +15,13 @@ public class RemoveFirstCommand implements ExecutableCommand, Serializable {
      * @param command command with arguments from the console.
      */
     @Override
-    public void execute() {
+    public String execute() {
             if(MainCollection.getQueue().isEmpty()){
-                System.out.println("\u001B[31m" + "Нельзя выполнить \"remove_first\", т. к. коллекция пустая!" + "\u001B[0m");
+                return "\u001B[31m" + "Нельзя выполнить \"remove_first\", т. к. коллекция пустая!" + "\u001B[0m";
             }else {
                 MainCollection.getQueue().remove();
                 HistoryCommand.UpdateHistory("remove_first");
+                return "";
             }
     }
 

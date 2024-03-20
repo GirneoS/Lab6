@@ -5,7 +5,10 @@ import org.example.MainCollection;
 import org.example.basics.Dragon;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ShowCommand implements ExecutableCommand, Serializable {
     private String[] cmd;
@@ -15,9 +18,14 @@ public class ShowCommand implements ExecutableCommand, Serializable {
      * @param command command with arguments from the console.
      */
     @Override
-    public void execute() {
-        MainCollection.getQueue().forEach(System.out::println);
+    public String execute() {
+        List<String> result = MainCollection.getQueue().stream()
+                        .map(Dragon::toString)
+                        .collect(Collectors.toList());
+
+        System.out.println(String.join("\n",result));
         HistoryCommand.UpdateHistory("show");
+        return String.join("\n",result);
     }
 
     /**

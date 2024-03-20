@@ -9,7 +9,7 @@ public interface ExecutableCommand extends Serializable {
     /**
      * This method contains the logic of command execution
      */
-    void execute();
+    String execute();
 
     /**
      * This method validates a command from the console

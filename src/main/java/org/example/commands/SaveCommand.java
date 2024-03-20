@@ -15,19 +15,22 @@ public class SaveCommand implements ExecutableCommand, Serializable {
      * This method contains the logic for "save" command. Here the program saves the collection in file "SavedCollection".
      */
     @Override
-    public void execute() {
+    public String execute() {
             if (Files.isWritable(new File(System.getenv("SAVE_DRAGON")).toPath())){
                 try (PrintWriter writer = new PrintWriter(new FileWriter(System.getenv("SAVE_DRAGON")))) {
                     writer.write("name,age,id,wingspan,DragonType"+"\n");
 
                     MainCollection.getQueue().forEach(d -> writer.write(d.getName()+","+d.getAge()+","+d.getId()+","+d.getWingspan()+","+d.getType() + "\n"));
-                    System.out.println("\033[0;34m" + "Коллекция сохранена в файл!" + "\u001B[0m");
+
                     HistoryCommand.UpdateHistory("save");
+                    return "\033[0;34m" + "Коллекция сохранена в файл!" + "\u001B[0m";
+
                 } catch (IOException e) {
                     e.printStackTrace();
+                    return "Ошибка в блоке try";
                 }
             }else{
-                System.out.println("\u001B[31m" + "У вас нет прав доступа к файлу сохранения!" + "\u001B[0m");
+                return "\u001B[31m" + "У вас нет прав доступа к файлу сохранения!" + "\u001B[0m";
             }
         }
     /**

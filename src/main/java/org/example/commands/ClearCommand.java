@@ -13,18 +13,17 @@ public class ClearCommand implements ExecutableCommand, Serializable {
      * This method contains logic for "clear" command. Here the program makes PriorityQueue empty.
      */
     @Override
-    public void execute() {
+    public String execute() {
             int sizeCollection = MainCollection.getQueue().size();
             if(sizeCollection==0){
-                System.out.println("\u001B[31m" + "Коллекция уже пустая!" + "\u001B[0m");
+                return "\u001B[31m" + "Коллекция уже пустая!" + "\u001B[0m";
             }else {
                 for (int i = 0; i < sizeCollection; i++) {
                     MainCollection.getQueue().remove();
                 }
-                System.out.println("\033[0;34m" + "Очистка коллекции..." + "\u001B[0m");
+                HistoryCommand.UpdateHistory("clear");
+                return "\033[0;34m" + "Очистка коллекции..." + "\u001B[0m";
             }
-
-            HistoryCommand.UpdateHistory("clear");
 
     }
 

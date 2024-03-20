@@ -20,11 +20,10 @@ public class AddCommand implements ExecutableCommand, Serializable {
      *
      */
     @Override
-    public void execute() {
-        System.out.println("Новый дракон: "+dragon);
+    public String execute() {
         MainCollection.getQueue().add(dragon);
         HistoryCommand.UpdateHistory("add Dragon");
-
+        return "\033[0;34m" + "Новый дракон: " + dragon + "\u001B[0m";
     }
 
     /**

@@ -11,8 +11,9 @@ import java.util.Optional;
 public class FilterStartsWithNameCommand implements ExecutableCommand, Serializable {
     private String[] cmd;
     @Override
-    public void execute() {
+    public String execute() {
             String subName = cmd[1];
+            final String[] answer = {""};
 
             Optional<Dragon> dragon = MainCollection.getQueue().stream()
                     .filter(x -> x.getName().startsWith(subName))
@@ -20,9 +21,10 @@ public class FilterStartsWithNameCommand implements ExecutableCommand, Serializa
 
             dragon.ifPresentOrElse(
                     v -> {HistoryCommand.UpdateHistory("filter_starts_with_name");
-                        System.out.println(dragon);},
-                    () -> System.out.println("\u001B[31m" + "В коллекции нет драконов, у которых имя начинается с указанной подстроки!" + "\u001B[0m")
-            );
+                        answer[0] += dragon.toString();},
+                    () -> answer[0] += "\u001B[31m" + "В коллекции нет драконов, у которых имя начинается с указанной подстроки!" + "\u001B[0m");
+
+            return answer[0];
     }
 
     @Override

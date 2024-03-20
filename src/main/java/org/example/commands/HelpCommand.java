@@ -12,8 +12,9 @@ public class HelpCommand implements ExecutableCommand, Serializable {
      * @param command command with arguments from the console
      */
     @Override
-    public void execute() {
-            System.out.println("""
+    public String execute() {
+            HistoryCommand.UpdateHistory("help");
+            return """
             help : вывести справку по доступным командам
             info : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)
             show : вывести в стандартный поток вывода все элементы коллекции в строковом представлении
@@ -29,8 +30,7 @@ public class HelpCommand implements ExecutableCommand, Serializable {
             history : вывести последние 13 команд (без их аргументов)
             filter_by_wingspan wingspan : вывести элементы, значение поля wingspan которых равно заданному
             filter_starts_with_name name : вывести элементы, значение поля name которых начинается с заданной подстроки
-            print_descending : вывести элементы коллекции в порядке убывания""");
-            HistoryCommand.UpdateHistory("help");
+            print_descending : вывести элементы коллекции в порядке убывания""";
     }
 
     /**
