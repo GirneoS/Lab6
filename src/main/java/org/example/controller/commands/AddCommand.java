@@ -1,6 +1,6 @@
 package org.example.controller.commands;
 
-import org.example.models.ExecutableCommand;
+import org.example.controller.ExecutableCommand;
 import org.example.models.MainCollection;
 import org.example.models.basics.Coordinates;
 import org.example.models.basics.Dragon;

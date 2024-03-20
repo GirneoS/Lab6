@@ -1,6 +1,6 @@
 package org.example.server;
 
-import org.example.models.ExecutableCommand;
+import org.example.controller.ExecutableCommand;
 import org.example.controller.Serialization;
 
 import java.io.*;

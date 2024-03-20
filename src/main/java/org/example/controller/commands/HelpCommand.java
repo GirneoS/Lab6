@@ -1,6 +1,6 @@
 package org.example.controller.commands;
 
-import org.example.models.ExecutableCommand;
+import org.example.controller.ExecutableCommand;
 
 import java.io.Serializable;
 import java.util.Arrays;
