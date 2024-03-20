@@ -1,13 +1,11 @@
-package org.example.commands;
+package org.example.controller.commands;
 
-import org.example.ExecutableCommand;
-import org.example.MainCollection;
-import org.example.basics.Dragon;
+import org.example.models.ExecutableCommand;
+import org.example.models.MainCollection;
+import org.example.models.basics.Dragon;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 public class RemoveByIdCommand implements ExecutableCommand, Serializable {
     private String[] cmd;

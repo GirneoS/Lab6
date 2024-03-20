@@ -1,8 +1,7 @@
-package org.example.commands;
+package org.example.controller.commands;
 
-import com.sun.tools.javac.Main;
-import org.example.ExecutableCommand;
-import org.example.MainCollection;
+import org.example.models.ExecutableCommand;
+import org.example.client.InputClient;
 
 import java.io.*;
 import java.util.Arrays;
@@ -12,38 +11,26 @@ public class ExitCommand implements ExecutableCommand, Serializable {
 
     /**
      * This method contains logic for "exit" command. Here the program exits from app.
-     * @param command command with arguments from the console
      */
     @Override
     public String execute() {
+        SaveCommand saveCommand = new SaveCommand();
+        var savedStatus = saveCommand.execute();
 
-        try(FileOutputStream writer = new FileOutputStream("SavedApp");
-            ObjectOutputStream oos = new ObjectOutputStream(writer)){
+        System.out.println(savedStatus);
 
-            MainCollection.getQueue().forEach(x -> {
-                try {
-                    oos.writeObject(x);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-
-        return "\033[0;34m" + "Вы завершили работу приложения..." + "\u001B[0m";
+        return "\033[0;34m" + "Завершение работы приложения..." + "\u001B[0m";
 
     }
 
     /**
      * This method validates an arguments for "exit" command
-     * @param command command with arguments from the console
      * @return returns true if arguments was entered correctly and false if it was entered incorrectly
      */
     @Override
     public boolean validate() {
         if(cmd.length==1){
-            System.exit(0);
+            InputClient.setRunningStatus(false);
             return true;
         }else{
             System.out.println("\u001B[31m" + "У команды exit нет аргументов!" + "\u001B[0m");

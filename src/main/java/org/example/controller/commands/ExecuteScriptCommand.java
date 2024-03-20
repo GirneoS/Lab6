@@ -1,6 +1,6 @@
-package org.example.commands;
+package org.example.controller.commands;
 
-import org.example.ExecutableCommand;
+import org.example.models.ExecutableCommand;
 import org.example.server.ServerCommandController;
 
 import java.io.*;
@@ -13,7 +13,6 @@ public class ExecuteScriptCommand implements ExecutableCommand, Serializable {
 
     /**
      * This method contains logic for "execute_script" command. Here the program reading commands from file.
-     * @param command command with arguments from the console
      */
     @Override
     public String execute() {
@@ -39,7 +38,6 @@ public class ExecuteScriptCommand implements ExecutableCommand, Serializable {
 
     /**
      * This method validates an arguments for "execute_script" command
-     * @param command command with arguments from the console
      * @return returns true if arguments was entered correctly and false if it was entered incorrectly
      */
     @Override

@@ -1,11 +1,11 @@
-package org.example.commands;
+package org.example.controller.commands;
 
-import org.example.ExecutableCommand;
-import org.example.MainCollection;
-import org.example.basics.Coordinates;
-import org.example.basics.Dragon;
-import org.example.basics.DragonHead;
-import org.example.basics.DragonType;
+import org.example.models.ExecutableCommand;
+import org.example.models.MainCollection;
+import org.example.models.basics.Coordinates;
+import org.example.models.basics.Dragon;
+import org.example.models.basics.DragonHead;
+import org.example.models.basics.DragonType;
 
 import java.io.Serializable;
 import java.util.Arrays;

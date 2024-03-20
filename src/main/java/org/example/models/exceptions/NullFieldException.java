@@ -1,4 +1,4 @@
-package org.example.exceptions;
+package org.example.models.exceptions;
 
 /**
  * This exception is thrown when the user enters null value where it can't be

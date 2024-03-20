@@ -1,11 +1,11 @@
-package org.example;
+package org.example.models;
 
-import org.example.basics.Coordinates;
-import org.example.basics.Dragon;
-import org.example.basics.DragonHead;
-import org.example.basics.DragonType;
-import org.example.exceptions.LogicException;
-import org.example.exceptions.NullFieldException;
+import org.example.models.basics.Coordinates;
+import org.example.models.basics.Dragon;
+import org.example.models.basics.DragonHead;
+import org.example.models.basics.DragonType;
+import org.example.models.exceptions.LogicException;
+import org.example.models.exceptions.NullFieldException;
 
 import java.io.BufferedReader;
 import java.io.File;

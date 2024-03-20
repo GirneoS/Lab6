@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.util.*;
 
 public class InputClient {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    private static boolean RunningStatus = true;
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         String[] command;
-        while(true){
+        while(RunningStatus){
             System.out.print(">");
             if(scanner.hasNextLine()) {
                 command = scanner.nextLine().split(" ");
@@ -20,5 +21,9 @@ public class InputClient {
             }
         }
 
+    }
+
+    public static void setRunningStatus(boolean status){
+        RunningStatus = status;
     }
 }

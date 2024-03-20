@@ -1,7 +1,7 @@
-package org.example.commands;
+package org.example.controller.commands;
 
-import org.example.ExecutableCommand;
-import org.example.MainCollection;
+import org.example.models.ExecutableCommand;
+import org.example.models.MainCollection;
 
 import java.io.Serializable;
 import java.util.Arrays;

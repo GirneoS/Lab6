@@ -1,6 +1,6 @@
-package org.example.commands;
+package org.example.controller.commands;
 
-import org.example.ExecutableCommand;
+import org.example.models.ExecutableCommand;
 
 import java.io.Serializable;
 import java.util.ArrayDeque;
@@ -38,7 +38,11 @@ public class HistoryCommand implements ExecutableCommand, Serializable {
     public static String PrintHistory(){
         String str_history = "";
         for (String s : history) {
-            str_history += s+"\n";
+            if(str_history.length()==0) {
+                str_history += s;
+            }else{
+                str_history += "\n"+s;
+            }
         }
         return str_history;
     }

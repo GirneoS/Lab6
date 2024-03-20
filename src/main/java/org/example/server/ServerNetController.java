@@ -1,15 +1,15 @@
 package org.example.server;
 
-import org.example.ExecutableCommand;
-import org.example.Serialization;
+import org.example.models.ExecutableCommand;
+import org.example.controller.Serialization;
 
 import java.io.*;
 import java.net.*;
 import java.util.logging.Logger;
 
-public class ServerNet {
+public class ServerNetController {
 
-    private static Logger logger = Logger.getLogger("Laba6");
+    private static final Logger logger = Logger.getLogger("Laba6");
     private static boolean connection = false;
     public static void SendResponse(byte[] arr) throws SocketException {
         try(DatagramSocket socket = new DatagramSocket()){
@@ -41,7 +41,6 @@ public class ServerNet {
             ExecutableCommand command = Serialization.DeserializeObject(bytesOfRequest);
 
             logger.info("Request has been received - "+command.getClass()+"\n-------------------------------------------------");
-//            System.out.println("\n-------------------------------------------------\n");
 
             return command;
         }

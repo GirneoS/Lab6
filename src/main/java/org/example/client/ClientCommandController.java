@@ -1,8 +1,8 @@
 package org.example.client;
 
-import org.example.ExecutableCommand;
-import org.example.Serialization;
-import org.example.commands.*;
+import org.example.controller.commands.*;
+import org.example.models.ExecutableCommand;
+import org.example.controller.Serialization;
 
 import java.io.*;
 import java.util.HashMap;
@@ -46,9 +46,9 @@ public class ClientCommandController {
 
             if(executableCommand.validate()) {
                 byte[] serializedCommand = Serialization.SerializeObject(executableCommand);
-                ClientNet.SendRequest(serializedCommand);
+                ClientNetController.SendRequest(serializedCommand);
 
-                ClientNet.GetResponse();
+                ClientNetController.GetResponse();
             }
         }else{
             System.out.println("\u001B[31m" + "Команда "+command[0]+" не найдена!" + "\u001B[0m");

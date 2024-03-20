@@ -1,7 +1,7 @@
 package org.example.server;
 
-import org.example.ExecutableCommand;
-import org.example.commands.*;
+import org.example.models.ExecutableCommand;
+import org.example.controller.commands.*;
 
 import java.util.HashMap;
 

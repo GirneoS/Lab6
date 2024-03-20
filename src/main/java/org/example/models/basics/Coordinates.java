@@ -1,6 +1,6 @@
-package org.example.basics;
+package org.example.models.basics;
 
-import org.example.exceptions.OutOfWorldException;
+import org.example.models.exceptions.OutOfWorldException;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -22,5 +22,13 @@ public class Coordinates implements Serializable {
         if(y>-896) {
             this.y = y;
         }else{throw new OutOfWorldException("Координата \"y\" должна быть больше -896, исправьте значение в файле!");}
+    }
+
+    public Integer getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
     }
 }

@@ -1,14 +1,11 @@
-package org.example.basics;
+package org.example.models.basics;
 
-import org.example.MainCollection;
-import org.example.exceptions.LogicException;
-import org.example.exceptions.NullFieldException;
+import org.example.models.MainCollection;
+import org.example.models.exceptions.LogicException;
+import org.example.models.exceptions.NullFieldException;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.PriorityQueue;
 import java.util.Random;
 
 /**
@@ -105,8 +102,17 @@ public class Dragon implements Comparable<Dragon>, Serializable {
     }
 
     @Override
-    public int compareTo(Dragon o) {
-        return Integer.compare(this.id, o.id);
+    public int compareTo(Dragon d) {
+        int thisX = this.coordinates.getX();
+        float thisY = this.coordinates.getY();
+        int dX = d.coordinates.getX();
+        float dY = d.coordinates.getY();
+        if(thisX*thisX+thisY*thisY > dX*dX+dY*dY){
+            return 1;
+        }else if(thisX*thisX+thisY*thisY == dX*dX+dY*dY){
+            return 0;
+        }
+        return -1;
     }
 
 }

@@ -1,13 +1,13 @@
 package org.example.client;
 
-import org.example.Serialization;
+import org.example.controller.Serialization;
 
 import java.io.IOException;
 import java.net.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 
-public class ClientNet {
+public class ClientNetController {
     public static void SendRequest(byte[] arr) throws IOException {
 
         try(DatagramChannel channel = DatagramChannel.open()){
@@ -21,7 +21,7 @@ public class ClientNet {
 
     }
 
-    public static void GetResponse() throws SocketException {
+    public static void GetResponse() {
 
         try(DatagramSocket socket = new DatagramSocket(8186)){
             byte[] bytesOfResponse = new byte[2048];
