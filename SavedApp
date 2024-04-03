@@ -1,5 +1,4 @@
 name,age,id,wingspan,DragonType
-Egor,3245,701,894.4,AIR
-Andrew,67693,303,413.12,WATER
-Yuriy,47827,256,413.12,WATER
-Emanuel,90213,622,null,null
+Andrew,67693,13,413.12,WATER
+Emanuel,90213,325,null,null
+Yuriy,47827,418,413.12,WATER

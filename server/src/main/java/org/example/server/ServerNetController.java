@@ -3,34 +3,46 @@ package org.example.server;
 import org.example.controller.ExecutableCommand;
 import org.example.controller.Serialization;
 
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.DatagramChannel;
 import java.util.logging.Logger;
 
 public class ServerNetController {
 
     private static final Logger logger = Logger.getLogger("Laba6");
     private static boolean connection = false;
-    public static void SendResponse(byte[] arr) throws SocketException {
-        try(DatagramSocket socket = new DatagramSocket()){
+    public static void SendResponse(byte[] arr, SocketAddress address) throws SocketException {
+//        try(DatagramSocket socket = new DatagramSocket()){
+//
+//            DatagramPacket packet = new DatagramPacket(arr, arr.length, address);
+//
+//            socket.send(packet);
+//            logger.info("Response just has been sent\n-------------------------------------------------\n\n");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+        try(DatagramChannel channel = DatagramChannel.open()){
+            ByteBuffer buffer = ByteBuffer.wrap(arr);
 
-            SocketAddress address = new InetSocketAddress("localhost",8186);
-            DatagramPacket packet = new DatagramPacket(arr, arr.length, address);
-
-            socket.send(packet);
+            channel.send(buffer,address);
             logger.info("Response just has been sent\n-------------------------------------------------\n\n");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        }catch (IOException e){
+            e.printStackTrace();
         }
     }
 
-    public static ExecutableCommand GetRequest() throws IOException, ClassNotFoundException {
+    public static void GetRequestAndSendResponse() throws IOException, ClassNotFoundException {
 
-        try(DatagramSocket socket = new DatagramSocket(8187)){
+        try(DatagramChannel channel = DatagramChannel.open()){
+            channel.bind(new InetSocketAddress(8187));
             byte[] bytesOfRequest = new byte[2048];
 
-            DatagramPacket requestPacket = new DatagramPacket(bytesOfRequest, bytesOfRequest.length);
-            socket.receive(requestPacket);
+            ByteBuffer buffer = ByteBuffer.wrap(bytesOfRequest);
+            SocketAddress address = channel.receive(buffer);
+            System.out.println("ответ получен");
 
             if(!connection){
                 logger.info("Client has connected to server\n-------------------------------------------------");
@@ -42,7 +54,10 @@ public class ServerNetController {
 
             logger.info("Request has been received - "+command.getClass()+"\n-------------------------------------------------");
 
-            return command;
+            String resultOfCommand = command.execute();
+            System.out.println(resultOfCommand);
+            byte[] response = Serialization.SerializeObject(resultOfCommand);
+            SendResponse(response,address);
         }
 
     }

@@ -26,7 +26,7 @@
             <configuration>
                 <archive>
                     <manifest>
-                        <mainClass>com.example.server.InputServer</mainClass>
+                        <mainClass>com.example.client.InputClient</mainClass>
                     </manifest>
                 </archive>
                 <descriptorRefs>
